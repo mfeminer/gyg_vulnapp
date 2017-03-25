@@ -1,15 +1,14 @@
 <?php
 	error_reporting(E_ALL);
 	ini_set('display_errors', 1);
-	
-	include('management/session.php');
-	include('management/page.php');
+
+	require_once 'management/session.php';
+	require_once 'management/page.php';
 
 
 	$session_management = new SessionManagement();
 	$page_management = new PageManagement();
 ?>
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -53,6 +52,9 @@
 	<?php
 		$page_management->RenderPage();
 	?>
+	<script type="text/javascript" src="assets/js/jquery-3.2.0.min.js"></script>
 	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/app/webRequest.js"></script>
+	<script type="text/javascript" src="assets/js/app/app.js"></script>
 </body>
 </html>
