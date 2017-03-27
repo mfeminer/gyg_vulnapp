@@ -4,7 +4,7 @@
 
 	require_once 'management/session.php';
 	require_once 'management/page.php';
-
+	require_once 'management/db.php';
 
 	$session_management = new SessionManagement();
 	$page_management = new PageManagement();
