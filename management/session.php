@@ -27,12 +27,17 @@
 
 		public function LogInUser($user)
 		{
-			setcookie("is_authenticated", $user.id, time() + (86400 * 30), "/");
-			setcookie("userid", $user.id, time() + (86400 * 30), "/");
+			setcookie("is_authenticated", true, time() + (86400 * 30), "/");
+			setcookie("userid", $user->id, time() + (86400 * 30), "/");
 
-			if ($user.is_admin) {
+			if ($user->is_admin) {
 				setcookie("is_admin", $user.is_admin, time() + (86400 * 30), "/");
 			}
+		}
+
+		public function GetCurrentUserId()
+		{
+			return $_COOKIE["userid"];
 		}
 	}
 ?>

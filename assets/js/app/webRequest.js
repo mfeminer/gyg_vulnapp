@@ -18,7 +18,6 @@ webRequest = {
 			type: type,
 			url: url,
 			async: true,
-			//contentType: "application/json; charset=utf-8",
 			data: data,
 			success: successCallback,
 			error: errorCallback

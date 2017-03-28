@@ -36,16 +36,21 @@
 					</div>
 					<button type="submit" class="btn btn-default">Ara</button>
 				</form>
+				<ul class="nav navbar-nav navbar-right">
 				<?php
 				if (!$session_management->IsAuthenticated()) {
 				?>
-				<ul class="nav navbar-nav navbar-right">
 					<li><a href="index.php?page=register.php">Kayıt</a></li>
 					<li><a href="index.php?page=login.php">Giriş Yap</a></li>
-				</ul>
+				<?php
+				}
+				else {
+				?>
+					<li><a href="index.php?page=profile.php">Profil</a></li>
 				<?php
 				}
 				?>
+				</ul>
 			</div>
 		</div>
 	</nav>

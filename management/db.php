@@ -32,13 +32,13 @@
 
 		public function Select($table_name, $condition_string)
 		{
-			$query = "SELECT * FROM ". $table_name ." WHERE ". $condition_string;
+			$query = "SELECT * FROM ". $table_name ." ". $condition_string;
 			return $this->connection->query($query);
 		}
 
 		public function Insert($table_name, $values_string)
 		{
-			$query = "INSERT INTO ". $table_name ."(". $values_string .")";
+			$query = "INSERT INTO ". $table_name ." ". $values_string;
 			return $this->connection->query($query);
 		}
 	}
