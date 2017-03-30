@@ -61,5 +61,6 @@
 	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="assets/js/app/webRequest.js"></script>
 	<script type="text/javascript" src="assets/js/app/app.js"></script>
+	<script type="text/javascript" src="assets/js/app/questions.js"></script>
 </body>
 </html>

@@ -1,28 +1,34 @@
 <?php
-	require_once 'models/question.php';
-	
-	$questions = array();
+	require_once '../models/question.php';
+	require_once '../management/db.php';
 
 	if ($_GET) {
+	
+		$questions = array();
 
 		$db = new DatabaseManagement("gyg_user", "gyg_pass");
 
-		$page = $_POST["page"];
-		$page_size = $_POST["pageSize"];
-
-		$cond = "WHERE visible=TRUE LIMIT ". ($page-1)*$page_size .", ". $page_size;
+		$cond = "WHERE visible=TRUE";
 
 		$result = $db->Select("questions", $cond);
 
 
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				$que = new Question($row["id"], $row["title"]);
+				$que = new Question($row);
 				array_push($questions, $que);
 			}
 		}
+
+		echo json_encode($questions);
+		return;
 	}
 
-	echo $questions;
-	return;
+	if ($_POST) {
+		$title = $_POST["title"];
+		$content = $_POST["content"];
+		$date = date("Y-m-d H:i:s");
+
+		echo "string";  // TODO: add que
+	}
 ?>
