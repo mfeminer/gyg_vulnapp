@@ -1,6 +1,6 @@
 <?php
-	$session_management = new SessionManagement();
-	if ($session_management->IsAuthenticated()) {
+	$session_manager = new SessionManagement();
+	if ($session_manager->IsAuthenticated()) {
 		header('Location: index.php');
 	}
 ?>
@@ -29,3 +29,5 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript" src="assets/js/app/app.js"></script>

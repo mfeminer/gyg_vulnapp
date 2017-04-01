@@ -4,10 +4,9 @@
 
 	require_once 'management/session.php';
 	require_once 'management/page.php';
-	require_once 'management/db.php';
 
-	$session_management = new SessionManagement();
-	$page_management = new PageManagement();
+	$session_manager = new SessionManagement();
+	$page_manager = new PageManagement();
 ?>
 <!DOCTYPE html>
 <html lang="tr">
@@ -15,6 +14,10 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
 	<title>GYG Vuln App</title>
+	
+	<script type="text/javascript" src="assets/js/jquery-3.2.0.min.js"></script>
+	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/app/webRequest.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -30,23 +33,28 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<form class="navbar-form navbar-left">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Arama...">
-					</div>
-					<button type="submit" class="btn btn-default">Ara</button>
-				</form>
+				<?php
+					if ($page_manager->GetCurrentPage() == "questions.php") {
+						require_once 'partials/searchform.php';
+					}
+				?>
 				<ul class="nav navbar-nav navbar-right">
 				<?php
-				if (!$session_management->IsAuthenticated()) {
+				if (!$session_manager->IsAuthenticated()) {
 				?>
 					<li><a href="index.php?page=register.php">Kayıt</a></li>
 					<li><a href="index.php?page=login.php">Giriş Yap</a></li>
 				<?php
 				}
 				else {
+					if($session_manager->IsAdmin()){
 				?>
-					<li><a href="index.php?page=profile.php">Profil</a></li>
+					<li><a href="index.php?page=users.php">Kullanıcılar</a></li>
+				<?php
+					}
+				?>
+					<li><a href="index.php?page=profile.php&id=<?php echo $session_manager->GetCurrentUserId(); ?>">Profil</a></li>
+					<li><a href="index.php?page=logout.php">Çıkış Yap</a></li>
 				<?php
 				}
 				?>
@@ -55,12 +63,7 @@
 		</div>
 	</nav>
 	<?php
-		$page_management->RenderPage();
+		$page_manager->RenderPage();
 	?>
-	<script type="text/javascript" src="assets/js/jquery-3.2.0.min.js"></script>
-	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="assets/js/app/webRequest.js"></script>
-	<script type="text/javascript" src="assets/js/app/app.js"></script>
-	<script type="text/javascript" src="assets/js/app/questions.js"></script>
 </body>
 </html>

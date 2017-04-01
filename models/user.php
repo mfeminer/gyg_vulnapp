@@ -4,16 +4,17 @@
 	{
 		public $id;
 		public $username;
+		public $email;
 		public $password;
-		public $is_admin;
-		public $reg_date;
+		public $role;
 
 		function __construct($fetched_data)
 		{
 			$this->id = $fetched_data["id"];
 			$this->username = $fetched_data["username"];
+			$this->email = $fetched_data["email"];
 			$this->password = $fetched_data["password"];
-			$this->is_admin = $fetched_data["is_admin"];
+			$this->role = $fetched_data["role"];
 		}
 	}
 

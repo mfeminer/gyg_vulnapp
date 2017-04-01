@@ -7,13 +7,12 @@ login = function() {
 		password: password
 	}
 
-	loginSucceeded = function (response) {
-		alert(response);
-		window.location.href = "index.php";
-	}
+	webRequest.post('actions/login.php', user, loginSucceeded);
+}
 
-	webRequest.post('management/login.php', user, loginSucceeded);
-
+loginSucceeded = function (response) {
+	alert(response);
+	window.location.href = "index.php";
 }
 
 register = function() {
@@ -29,13 +28,12 @@ register = function() {
 		email: email
 	}
 
-	registerSucceeded = function (response) {
-		alert(response);
-		window.location.href = "index.php";
-	}
+	webRequest.post('actions/register.php', user, registerSucceeded);
+}
 
-	webRequest.post('management/register.php', user, registerSucceeded);
-
+registerSucceeded = function (response) {
+	alert(response);
+	window.location.href = "index.php";
 }
 
 $('button#login').on('click', login);

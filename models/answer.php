@@ -1,22 +1,20 @@
 <?php
 
-	class Question
+	class Answer
 	{
 		public $id;
-		public $title;
 		public $content;
-		public $user;
+		public $que_id;
 		public $date;
-		public $answers;
+		public $user;
 
-		function __construct($fetched_data, $answers = array())
+		function __construct($fetched_data)
 		{
 			$this->id = $fetched_data["id"];
-			$this->title = $fetched_data["title"];
 			$this->content = $fetched_data["content"];
 			$this->user = $fetched_data["user"];
 			$this->date = $fetched_data["date"];
-			$this->answers = $answers;
+			$this->que_id = $fetched_data["que_id"];
 		}
 	}
 ?>

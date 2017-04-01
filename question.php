@@ -10,20 +10,20 @@
 		<div class="col-md-8">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h2 class="panel-title">
-						Sorular
-					</h2>
+					<h3 class="panel-title">
+						Soru
+					</h3>
 				</div>
-				<div class="panel-body" id="questions">
+				<div class="panel-body" id="question">
 				</div>
 			</div>
 		</div>
 		<div class="col-md-4">
 			<?php 
-				require_once 'partials/askquestion.php';
+				require_once 'partials/answerquestion.php';
 			?>
 		</div>
 	</div>
 </div>
 
-<script type="text/javascript" src="assets/js/app/questions.js"></script>
+<script type="text/javascript" src="assets/js/app/question.js"></script>

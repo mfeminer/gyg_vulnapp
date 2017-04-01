@@ -8,7 +8,7 @@
 		const dbname = "gyg_vulnapp";
 		const hostname = "localhost";
 
-		function __construct($username, $password)
+		function __construct($username="gyg_user", $password="gyg_pass")
 		{
 			$this->username = $username;
 			$this->password = $password;
