@@ -41,5 +41,17 @@
 			$query = "INSERT INTO ". $table_name ." ". $values_string;
 			return $this->connection->query($query);
 		}
+
+		public function Update($table_name, $set_string, $condition_string)
+		{
+			$query = "UPDATE ". $table_name ." SET ". $set_string ." WHERE " . $condition_string;
+			return $this->connection->query($query);
+		}
+
+		public function Delete($table_name, $condition_string)
+		{
+			$query = "DELETE FROM ". $table_name ." WHERE ". $condition_string;
+			return $this->connection->query($query);
+		}
 	}
 ?>

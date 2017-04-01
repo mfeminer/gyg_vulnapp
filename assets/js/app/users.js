@@ -2,13 +2,10 @@ $(function() {
 	var params = {
 	}
 
-	webRequest.get('actions/users.php', params, getUserSucceeded);
+	webRequest.get('actions/users.php', params, getUsersSucceeded);
 });
 
-searchuser = function () {
-}
-
-getUserSucceeded = function (response) {
+getUsersSucceeded = function (response) {
 	var users = JSON.parse(response);
 
 	var userTag = $('div#users');
@@ -36,5 +33,27 @@ getUserSucceeded = function (response) {
 		var role = $('<p/>')
 			.html("<span class='bold'>Rol:</span> " + user.role)
 			.appendTo(userPanelBody);
+
+		var userDeleteButton = $('<button/>')
+			.addClass('btn btn-danger')
+			.html('Delete User')
+			.attr('type', 'button')
+			.attr('onClick', 'deleteUser('+ user.id +')')
+			.appendTo(userPanelBody);
 	});
+}
+
+deleteUser = function (id) {
+	if (confirm("Silmek İstediğinize emin misiniz?")) {
+		var params = {
+			actiontype: "delete",
+			id: id
+		}
+
+		webRequest.post('actions/user.php', params, deleteUserSucceeded);	
+	}
+}
+
+function deleteUserSucceeded() {
+	window.location.reload();
 }

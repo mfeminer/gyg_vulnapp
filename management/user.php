@@ -68,9 +68,24 @@
 
 		public function AddNewUser($user)
 		{			
-			$values = "(username, email, password, role) VALUES('". $user->username. "', '".$user->email. "', '".$user->password. "', 'user')";
+			$values = "(username, email, password, role) VALUES('". $user->username. "', '" .$user->email. "', '" .$user->password. "', 'user')";
 
 			$result = $this->db_manager->Insert("users", $values);
+		}
+
+		public function UpdateUser($user)
+		{
+			$values = "(username, email, password, role) VALUES('". $user->username. "', '" .$user->email. "', '". $user->password ."', '". $user->role ."')";
+			$cond = "id=". $user->id;
+
+			$result = $this->db_manager->Update("users", $values, $cond);
+		}
+
+		public function DeleteUser($id)
+		{			
+			$cond = "id=". $id;
+
+			$result = $this->db_manager->Delete("users", $cond);
 		}
 	}
 ?>
