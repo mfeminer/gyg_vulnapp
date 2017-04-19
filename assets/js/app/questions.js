@@ -15,7 +15,7 @@ searchQuestionsSucceeded = function (response) {
 
 	var questionTag = $('div#questions');
 
-	questionTag.html('');
+	questionTag.text('');
 
 	questions.forEach(function (que) {
 		var questionPanel = $('<div/>')
@@ -32,11 +32,11 @@ searchQuestionsSucceeded = function (response) {
 			.appendTo(questionPanelBody);
 
 		var questionTitle = $('<h3/>')
-			.html(que.title)
+			.text(que.title)
 			.appendTo(questionTitleLink);
 
 		var questionUser = $('<span/>')
-			.html(que.user + " - " + que.date)
+			.text(que.user + " - " + que.date)
 			.appendTo(questionPanelBody);
 	});
 }

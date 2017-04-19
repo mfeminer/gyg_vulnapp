@@ -23,20 +23,20 @@ getUsersSucceeded = function (response) {
 			.appendTo(userPanel);
 
 		var userName = $('<p/>')
-			.html("<span class='bold'>Kullanıcı adı:</span> " + user.username)
+			.text("Kullanıcı adı:" + user.username)
 			.appendTo(userPanelBody);
 
 		var email = $('<p/>')
-			.html("<span class='bold'>E-posta:</span> " + user.email)
+			.text("E-posta:" + user.email)
 			.appendTo(userPanelBody);
 
 		var role = $('<p/>')
-			.html("<span class='bold'>Rol:</span> " + user.role)
+			.text("Rol:" + user.role)
 			.appendTo(userPanelBody);
 
 		var userDeleteButton = $('<button/>')
 			.addClass('btn btn-danger')
-			.html('Delete User')
+			.text('Delete User')
 			.attr('type', 'button')
 			.attr('onClick', 'deleteUser('+ user.id +')')
 			.appendTo(userPanelBody);

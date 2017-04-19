@@ -21,15 +21,15 @@ getQuestionSucceeded = function (response) {
 		.appendTo(questionPanel);
 
 	var questionTitle = $('<h3/>')
-		.html(question.title)
+		.text(question.title)
 		.appendTo(questionPanelBody);
 
 	var questionContent = $('<p/>')
-		.html(question.content)
+		.text(question.content)
 		.appendTo(questionPanelBody);
 
 	var questionUser = $('<span/>')
-		.html(question.user + " - " + question.date)
+		.text(question.user + " - " + question.date)
 		.appendTo(questionPanelBody);
 
 	question.answers.forEach(function (ans) {
@@ -43,11 +43,11 @@ getQuestionSucceeded = function (response) {
 			.appendTo(answerPanel);
 
 		var answerContent = $('<h3/>')
-			.html(ans.content)
+			.text(ans.content)
 			.appendTo(answerPanelBody);
 
 		var answerUser = $('<span/>')
-			.html(ans.user + " - " + ans.date)
+			.text(ans.user + " - " + ans.date)
 			.appendTo(answerPanelBody);
 	});
 }

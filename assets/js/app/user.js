@@ -12,15 +12,15 @@ getUserSucceeded = function (response) {
 	var userTag = $('div#profile');
 
 	var userName = $('<p/>')
-		.html("<span class='bold'>Kullanıcı adı:</span> " + user.username)
+		.text("Kullanıcı adı:" + user.username)
 		.appendTo(userTag);
 
 	var email = $('<p/>')
-		.html("<span class='bold'>E-posta:</span> " + user.email)
+		.text("E-posta:" + user.email)
 		.appendTo(userTag);
 
 	var role = $('<p/>')
-		.html("<span class='bold'>Rol:</span> " + user.role)
+		.text("Rol:" + user.role)
 		.appendTo(userTag);
 }
 
