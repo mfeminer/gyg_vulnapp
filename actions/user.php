@@ -1,12 +1,14 @@
 <?php
 	require_once '../management/user.php';
+	require_once '../management/session.php';
 
 	require_once '../models/user.php';
 
 	$user_manager = new UserManagement();
+	$session_manager = new SessionManagement();
 
 	if (isset($_GET["id"])) {
-		echo json_encode($user_manager->GetUserById($_GET["id"]));
+		echo json_encode($user_manager->GetUserById($session_manager->GetCurrentUserId()));
 		return;
 	}
 	else if (isset($_POST["actiontype"])) {
