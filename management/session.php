@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	
 	class SessionManagement
 	{
@@ -9,7 +10,7 @@
 
 		public function IsAuthenticated()
 		{
-			return isset($_COOKIE["is_authenticated"]) && $_COOKIE["is_authenticated"] == true;
+			return isset($_SESSION["is_authenticated"]) && $_SESSION["is_authenticated"] == true;
 		}
 
 		public function IsAdmin($id = '')
@@ -22,29 +23,28 @@
 				$id = $this->GetCurrentUserId();
 			}
 
-			return isset($_COOKIE["role"]) && $_COOKIE["role"] == "admin";
+			return isset($_SESSION["role"]) && $_SESSION["role"] == "admin";
 		}
 
 		public function LogInUser($user)
 		{
-			setcookie("is_authenticated", true, time() + (86400 * 30), "/");
-			setcookie("userid", $user->id, time() + (86400 * 30), "/");
+			$_SESSION["is_authenticated"] = true;
+			$_SESSION["userid"] = $user->id;
 
 			if ($user->role == "admin") {
-				setcookie("role", $user->role, time() + (86400 * 30), "/");
+				$_SESSION["role"] = $user->role;
 			}
 		}
 
 		public function Logout()
 		{
-			setcookie("is_authenticated", "", time() - (86400 * 30), "/");
-			setcookie("userid", "", time() - (86400 * 30), "/");
-			setcookie("role", "", time() - (86400 * 30), "/");
+			session_unset();
+			session_destroy(); 
 		}
 
 		public function GetCurrentUserId()
 		{
-			return $_COOKIE["userid"];
+			return $_SESSION["userid"];
 		}
 	}
 ?>
