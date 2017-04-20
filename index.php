@@ -34,7 +34,7 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<?php
-					if ($page_manager->GetCurrentPage() == "questions.php") {
+					if ($page_manager->GetCurrentPage() == "questions") {
 						require_once 'partials/searchform.php';
 					}
 				?>
@@ -42,19 +42,19 @@
 				<?php
 				if (!$session_manager->IsAuthenticated()) {
 				?>
-					<li><a href="index.php?page=register.php">Kayıt</a></li>
-					<li><a href="index.php?page=login.php">Giriş Yap</a></li>
+					<li><a href="index.php?page=register">Kayıt</a></li>
+					<li><a href="index.php?page=login">Giriş Yap</a></li>
 				<?php
 				}
 				else {
 					if($session_manager->IsAdmin()){
 				?>
-					<li><a href="index.php?page=users.php">Kullanıcılar</a></li>
+					<li><a href="index.php?page=users">Kullanıcılar</a></li>
 				<?php
 					}
 				?>
-					<li><a href="index.php?page=profile.php&id=<?php echo $session_manager->GetCurrentUserId(); ?>">Profil</a></li>
-					<li><a href="index.php?page=logout.php">Çıkış Yap</a></li>
+					<li><a href="index.php?page=profile&id=<?php echo $session_manager->GetCurrentUserId(); ?>">Profil</a></li>
+					<li><a href="index.php?page=logout">Çıkış Yap</a></li>
 				<?php
 				}
 				?>
