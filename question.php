@@ -1,7 +1,7 @@
 <?php
 	$session_manager = new SessionManagement();
 	if (!$session_manager->IsAuthenticated()) {
-		header('Location: index.php?page=login.php');
+		header('Location: index.php?page=login');
 	}
 ?>
 

@@ -17,17 +17,20 @@
 		public function GetQuestions($search="")
 		{
 			$questions = array();
+
 			if (!empty($search)) {
-				$cond = "WHERE content LIKE '". $search ."' OR title LIKE '". $search ."' ORDER BY `date`";
+				$query = sprintf("SELECT * FROM questions WHERE content LIKE '%s' OR title LIKE '%s' ORDER BY `date`",
+					mysqli_real_escape_string($this->db_manager->connection, $search),
+					mysqli_real_escape_string($this->db_manager->connection, $search));
 			}
 			else{
-				$cond = "ORDER BY `date` DESC";
+				$query = sprintf("SELECT * FROM questions ORDER BY `date`");
 			}
 
-			$question_row = $this->db_manager->Select("questions", $cond);
+			$result = $this->db_manager->Query($query);
 
-			if ($question_row->num_rows > 0) {
-				while($row = $question_row->fetch_assoc()) {
+			if ($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {
 					$que = new Question($row);
 					array_push($questions, $que);
 				}
@@ -38,33 +41,47 @@
 
 		public function AddNewQuestion($question, $user)
 		{
-			$values = "(title, content, user, date) VALUES('". $question->title ."', '". $question->content. "', '". $user->username ."', FROM_UNIXTIME(". time() ."))";
-			$this->db_manager->insert("questions", $values);
+			$query = sprintf("INSERT INTO questions (title, content, user, date) VALUES('%s', '%s', '%s', FROM_UNIXTIME(%s))",
+				mysqli_real_escape_string($this->db_manager->connection, $question->title),
+				mysqli_real_escape_string($this->db_manager->connection, $question->content),
+				mysqli_real_escape_string($this->db_manager->connection, $user->username),
+				mysqli_real_escape_string($this->db_manager->connection, time()));
+
+			$result = $this->db_manager->Query($query);
 		}
 
 		public function AddNewAnswer($answer, $user)
 		{
-			$values = "(content, user, date, que_id) VALUES('". $answer->content. "', '". $user->username ."', FROM_UNIXTIME(". time() ."), ". $answer->que_id .")";
-			$this->db_manager->insert("answers", $values);
+			$query = sprintf("INSERT INTO answers (content, user, date, que_id) VALUES('%s', '%s', FROM_UNIXTIME(%s), '%s')",
+				mysqli_real_escape_string($this->db_manager->connection, $answer->content),
+				mysqli_real_escape_string($this->db_manager->connection, $user->username),
+				mysqli_real_escape_string($this->db_manager->connection, time()),
+				mysqli_real_escape_string($this->db_manager->connection, $answer->que_id));
+
+			$result = $this->db_manager->Query($query);
 		}
 
 		public function GetQuestionById($id)
 		{
-			$que_cond = "WHERE id=". $id;
-			$ans_cond = "WHERE que_id=". $id . " ORDER BY `date` DESC";
-			$question_row = $this->db_manager->Select("questions", $que_cond);
-			$answers_row = $this->db_manager->Select("answers", $ans_cond);
+			$que_query = sprintf("SELECT * FROM questions WHERE id='%s'",
+				mysqli_real_escape_string($this->db_manager->connection, $id));
 
-			if ($question_row->num_rows > 0) {
+			$ans_query = sprintf("SELECT * FROM answers WHERE que_id='%s' ORDER BY `date` DESC",
+				mysqli_real_escape_string($this->db_manager->connection, $id));
+			
+			$que_result = $this->db_manager->Query($que_query);
+			$ans_result = $this->db_manager->Query($ans_query);
+
+			if ($que_result->num_rows > 0) {
 				$answers = array();
-				if ($answers_row->num_rows > 0) {
-					while($row = $answers_row->fetch_assoc()) {
+				if ($ans_result->num_rows > 0) {
+					while($row = $ans_result->fetch_assoc()) {
 						$ans = new Answer($row);
 						array_push($answers, $ans);
 					}
 				}
 
-				return new Question($question_row->fetch_assoc(), $answers);
+				return new Question($que_result->fetch_assoc(), $answers);
 			}
 		}
 	}

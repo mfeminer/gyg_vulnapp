@@ -28,7 +28,7 @@ searchQuestionsSucceeded = function (response) {
 			.appendTo(questionPanel);
 
 		var questionTitleLink = $('<a/>')
-			.attr('href', 'index.php?page=question.php&id=' + que.id)
+			.attr('href', 'index.php?page=question&id=' + que.id)
 			.appendTo(questionPanelBody);
 
 		var questionTitle = $('<h3/>')

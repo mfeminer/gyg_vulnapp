@@ -18,11 +18,13 @@
 		public function GetCurrentUser()
 		{
 			$current_user_id = $this->session_manager->GetCurrentUserId();
-			$cond = "WHERE id=". $current_user_id;
+			
+			$query = sprintf("SELECT * FROM users WHERE id='%s'",
+				mysqli_real_escape_string($this->db_manager->connection, $current_user_id));
 
-			$user_row = $this->db_manager->Select("users",  $cond);
+			$result = $this->db_manager->Query($query);
 
-			return new User($user_row->fetch_assoc());
+			return new User($result->fetch_assoc());
 		}
 
 		public function GetUserById($id='')
@@ -30,22 +32,25 @@
 			if (empty($id)) {
 				return null;
 			}
+			
+			$query = sprintf("SELECT * FROM users WHERE id='%s'",
+				mysqli_real_escape_string($this->db_manager->connection, $id));
 
-			$cond = "WHERE id=". $id;
+			$result = $this->db_manager->Query($query);
 
-			$user_row = $this->db_manager->Select("users",  $cond);
-
-			return new User($user_row->fetch_assoc());
+			return new User($result->fetch_assoc());
 		}
 
 		public function GetUsers()
 		{
 			$users = array();
-
-			$user_row = $this->db_manager->Select("users",  $cond);
 			
-			if ($user_row->num_rows > 0) {
-				while($row = $user_row->fetch_assoc()) {
+			$query = sprintf("SELECT * FROM users");
+
+			$result = $this->db_manager->Query($query);
+			
+			if ($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {
 					$user = new User($row);
 					array_push($users, $user);
 				}
@@ -55,37 +60,49 @@
 
 		public function CheckUser($username, $password)
 		{
-			$cond = "WHERE username='". $username ."' AND password='". $password ."'";
+			$query = sprintf("SELECT * FROM users WHERE username='%s' AND password='%s'",
+				mysqli_real_escape_string($this->db_manager->connection, $username),
+				mysqli_real_escape_string($this->db_manager->connection, $password));
 
-			$user_row = $this->db_manager->Select("users",  $cond);
+			$result = $this->db_manager->Query($query);
 
-			if($user_row->num_rows <= 0) {
+			if($result->num_rows <= 0) {
 				return null;
 			}
 
-			return new User($user_row->fetch_assoc());
+			return new User($result->fetch_assoc());
 		}
 
-		public function AddNewUser($user)
-		{			
-			$values = "(username, email, password, role) VALUES('". $user->username. "', '" .$user->email. "', '" .$user->password. "', 'user')";
+		// DÜZENLE
 
-			$result = $this->db_manager->Insert("users", $values);
+		public function AddNewUser($user)
+		{
+			$query = sprintf("INSERT INTO users (username, email, password, role) VALUES('%s', '%s', '%s', 'user')",
+				mysqli_real_escape_string($this->db_manager->connection, $user->username),
+				mysqli_real_escape_string($this->db_manager->connection, $user->email),
+				mysqli_real_escape_string($this->db_manager->connection, $user->password));
+
+			$result = $this->db_manager->Query($query);
 		}
 
 		public function UpdateUser($user)
 		{
-			$values = "(username, email, password, role) VALUES('". $user->username. "', '" .$user->email. "', '". $user->password ."', '". $user->role ."')";
-			$cond = "id=". $user->id;
+			$query = sprintf("UPDATE users SET username = '%s', email = '%s', password = '%s', role = '%s' WHERE id='%s'",
+				mysqli_real_escape_string($this->db_manager->connection, $user->username),
+				mysqli_real_escape_string($this->db_manager->connection, $user->email),
+				mysqli_real_escape_string($this->db_manager->connection, $user->password),
+				mysqli_real_escape_string($this->db_manager->connection, $user->role),
+				mysqli_real_escape_string($this->db_manager->connection, $user->id));
 
-			$result = $this->db_manager->Update("users", $values, $cond);
+			$result = $this->db_manager->Query($query);
 		}
 
 		public function DeleteUser($id)
-		{			
-			$cond = "id=". $id;
+		{
+			$query = sprintf("DELETE FROM users WHERE id='%s'",
+				mysqli_real_escape_string($this->db_manager->connection, $user->id));
 
-			$result = $this->db_manager->Delete("users", $cond);
+			$result = $this->db_manager->Query($query);
 		}
 	}
 ?>

@@ -2,7 +2,7 @@
 
 	class DatabaseManagement
 	{
-		private $connection;
+		public $connection;
 		private $username;
 		private $password;
 		const dbname = "gyg_vulnapp";
@@ -30,27 +30,8 @@
 			return true;
 		}
 
-		public function Select($table_name, $condition_string)
+		public function Query($query)
 		{
-			$query = "SELECT * FROM ". $table_name ." ". $condition_string;
-			return $this->connection->query($query);
-		}
-
-		public function Insert($table_name, $values_string)
-		{
-			$query = "INSERT INTO ". $table_name ." ". $values_string;
-			return $this->connection->query($query);
-		}
-
-		public function Update($table_name, $set_string, $condition_string)
-		{
-			$query = "UPDATE ". $table_name ." SET ". $set_string ." WHERE " . $condition_string;
-			return $this->connection->query($query);
-		}
-
-		public function Delete($table_name, $condition_string)
-		{
-			$query = "DELETE FROM ". $table_name ." WHERE ". $condition_string;
 			return $this->connection->query($query);
 		}
 	}
